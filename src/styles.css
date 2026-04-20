@@ -655,34 +655,122 @@ html, body {
 
 /* ---------- Mobile ---------- */
 @media (max-width: 720px) {
-  #root { padding: 1rem 1rem 3rem; }
-  .ttb-title { font-size: 1.5rem; }
-  .ttb-sub { font-size: 0.82rem; }
-  .ttb-mark { font-size: 2rem; }
-  .ttb-header { align-items: flex-start; }
-  .ttb-nav { gap: 0.5rem; }
-  .ttb-nav > button { padding: 0.5rem 0.7rem; font-size: 0.95rem; }
-  .ttb-nav .ttb-add { margin-left: auto; }
-
-  .ttb-row, .ttb-row-head {
-    grid-template-columns: 1.6fr 0.7fr 0.8fr 1fr;
-    grid-template-areas:
-      "name name type status"
-      "key links also also";
-    gap: 0.4rem 0.6rem;
-    padding: 0.75rem 0.25rem;
+  body {
+    padding: 0.75rem 0.75rem 2rem;
   }
-  .ttb-row-head { display: none; }
-  .ttb-row .c-name { grid-area: name; }
-  .ttb-row .c-type { grid-area: type; }
-  .ttb-row .c-key { grid-area: key; font-size: 0.85rem; }
-  .ttb-row .c-status { grid-area: status; justify-self: end; }
-  .ttb-row .c-also-in { grid-area: also; font-size: 0.75rem; justify-self: end; }
-  .ttb-row .c-links { grid-area: links; font-size: 0.78rem; }
 
-  .ttb-practice-name { font-size: 2rem; }
-  .ttb-practice-card { padding: 2rem 1.25rem; }
-  .ttb-edit-row { grid-template-columns: 1fr; }
+  /* Header */
+  .ttb-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .ttb-title { font-size: 1.5rem; }
+  .ttb-sub { font-size: 0.8rem; }
+  .ttb-mark { font-size: 1.75rem; }
+  .ttb-header-right {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .ttb-header-right > * {
+    font-size: 0.72rem !important;
+    padding: 0.35rem 0.55rem !important;
+  }
+
+  /* Nav tabs + Add button */
+  .ttb-nav { gap: 0.4rem; flex-wrap: wrap; }
+  .ttb-nav > button {
+    padding: 0.45rem 0.7rem;
+    font-size: 0.9rem;
+  }
+  .ttb-nav .ttb-add { margin-left: auto; font-size: 0.85rem; padding: 0.5rem 0.75rem; }
+
+  /* Filter bar */
+  .ttb-filter-bar { flex-wrap: wrap; gap: 0.4rem; }
+  .ttb-filter-bar > * { font-size: 0.85rem; }
+
+  /* Tune rows: compact two-line layout */
+  .ttb-row-head { display: none; }
+  .ttb-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "name    status"
+      "meta    links";
+    gap: 0.25rem 0.6rem;
+    padding: 0.65rem 0.4rem;
+    align-items: center;
+  }
+
+  .ttb-row .c-name {
+    grid-area: name;
+    min-width: 0;
+  }
+  .ttb-row .tune-name {
+    font-size: 1rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    max-width: 100%;
+  }
+
+  .ttb-row .c-status {
+    grid-area: status;
+    justify-self: end;
+  }
+  .ttb-row .c-status .pill {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.45rem;
+  }
+
+  /* Second line: type · key · also-in, then links on the right */
+  .ttb-row .c-type,
+  .ttb-row .c-key,
+  .ttb-row .c-also-in {
+    grid-area: meta;
+    display: inline;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+  .ttb-row .c-type { grid-area: meta; }
+  .ttb-row .c-type em { font-size: 0.78rem; font-style: italic; }
+
+  /* Collapse key/also-in inline on the meta line */
+  .ttb-row .c-key {
+    display: none; /* hide key on mobile to keep the row tight; visible in editor */
+  }
+  .ttb-row .c-also-in {
+    grid-area: meta;
+    justify-self: start;
+    margin-left: 0.5rem;
+  }
+  .ttb-row .c-also-in .none { display: none; }
+
+  .ttb-row .c-links {
+    grid-area: links;
+    justify-self: end;
+    font-size: 0.75rem;
+    gap: 0.4rem;
+  }
+  .ttb-row .c-links a { font-size: 0.72rem; }
+
+  /* Because type/key/also-in all share "meta", we need a flex wrapper effect.
+     Use a small hack: stack them via flex with inline display and line-height. */
+  .ttb-row > .c-type + .c-key,
+  .ttb-row > .c-type + .c-also-in {
+    margin-left: 0.4rem;
+  }
+
+  /* Practice & editor */
+  .ttb-practice-name { font-size: 1.75rem; }
+  .ttb-practice-card { padding: 1.5rem 1rem; }
+  .ttb-edit { padding: 1rem; }
+  .ttb-edit-row { grid-template-columns: 1fr; gap: 0.6rem; }
+  .ttb-edit h2 { font-size: 1.3rem; }
+  .ttb-edit-actions { flex-wrap: wrap; gap: 0.5rem; }
+  .ttb-edit-actions > * { flex: 1 1 auto; min-width: 6rem; }
 }
 
 /* ---------- Invite banner ---------- */
